@@ -1,4 +1,4 @@
-# family-storyteller
+# aegis-storyteller
 
 An open-source framework that lets a grandparent's cloned voice read stories to
 their grandchildren, running on the grandparent's own Android phone.
@@ -32,6 +32,31 @@ family and never enter the repository.
 - A voice is personal data, not copyrighted content. The consent script says what is
   recorded, what it is used for, where it is stored, who uses it, and that it can be
   deleted. This is engineering design, not legal advice.
+
+## Built-in stories: Grimm's fairy tales for ages 5–7 (owner decision, 2026-11-02)
+
+The framework ships with Chinese (Traditional) Grimm's fairy tales suited to
+children aged 5–7, in `content/grimm/` (not `stories/`, which is ignored as user data).
+
+Copyright approach:
+- The German originals (*Kinder- und Hausmärchen*, 1812–1857) are public domain.
+- **Existing Chinese translations are not assumed to be public domain.** A
+  translation is its own copyrighted work, protected for decades after the
+  translator's death. A 2026-11-02 search found no Chinese translation with a clear
+  public-domain status, so none is copied or used as a base.
+- The project writes its **own Chinese retellings** from the German public-domain
+  text and licenses them with the repository. Each file records its source tale
+  (KHM number and edition) so provenance is checkable.
+
+Age 5–7 adaptation:
+- Retell, do not translate literally: short sentences, everyday words, a length that
+  reads aloud in about 5–10 minutes.
+- Soften violent or frightening details from the originals (e.g. mutilation and
+  cruel punishments) while keeping the plot.
+- Text is written to be read by TTS: avoid rare characters and polyphones where a
+  plain word will do, since ZipVoice's pinyin conversion can misread them.
+
+Open: which tales make the first set, and who reviews each retelling before it ships.
 
 ## Target device
 
