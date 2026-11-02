@@ -108,9 +108,10 @@ real-time is too slow, the framework pre-generates audio instead of reading live
 
 - App shape: our own reader app, or a system TTS engine that any reader can use.
 - Which Grimm tales make the first set, and who reviews each retelling.
-- Whether to also support real recordings: a storyteller who can read aloud records
-  the story themselves, and the cloned voice fills only the parts they skip. This
-  serves the goal of more people telling stories, not only more stories being read.
+
+Decided (owner, 2026-11-02): no real-recording mode. A storyteller who can read the
+story aloud can already do that with any recording app; this framework exists for
+the case where reading aloud is not possible.
 
 See [docs/consent-script.zh-TW.md](docs/consent-script.zh-TW.md) for the draft
 consent script.
