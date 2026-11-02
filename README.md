@@ -1,20 +1,28 @@
 # aegis-storyteller
 
-An open-source framework that lets a grandparent's cloned voice read stories to
-their grandchildren, running on the grandparent's own Android phone.
+An open-source framework that helps everyone tell stories to the children in their
+life, in their own voice, on their own phone.
 
 Status: **design stage, no code yet.** Research below was gathered on 2026-11-02
 from project pages and READMEs; nothing has been installed or tested yet.
 
-## The idea
+## Goal (owner, 2026-11-02)
+
+The goal is to get more people telling stories. Grandparents are the starting point
+and the first use case: someone who would like to tell stories to their
+grandchildren but finds reading aloud tiring or difficult. The same framework
+serves any storyteller (a parent, an aunt, a teacher), so nothing in the design is
+specific to grandparents.
+
+## First use case: a grandparent's voice
 
 1. Grandma reads a short consent script aloud into the app.
 2. That same recording is the voice sample. A zero-shot TTS model clones her voice
    on the phone.
 3. Any story (PDF, text) can then be read aloud in her voice, without her reading it.
 
-The repository ships **code only**. Voices and stories are added afterwards by each
-family and never enter the repository.
+The repository ships the code and the built-in public-domain stories. Voices, and
+stories a family adds, stay on the family's phone and never enter the repository.
 
 ## Design principles
 
@@ -100,6 +108,9 @@ real-time is too slow, the framework pre-generates audio instead of reading live
 
 - App shape: our own reader app, or a system TTS engine that any reader can use.
 - Which Grimm tales make the first set, and who reviews each retelling.
+- Whether to also support real recordings: a storyteller who can read aloud records
+  the story themselves, and the cloned voice fills only the parts they skip. This
+  serves the goal of more people telling stories, not only more stories being read.
 
 See [docs/consent-script.zh-TW.md](docs/consent-script.zh-TW.md) for the draft
 consent script.
