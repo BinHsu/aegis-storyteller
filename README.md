@@ -98,9 +98,14 @@ real-time is too slow, the framework pre-generates audio instead of reading live
 
 ## Open decisions (owner)
 
-- License for this repository (Apache-2.0 matches sherpa-onnx and ZipVoice).
-- Whether and when to publish to GitHub, and as public or private.
 - App shape: our own reader app, or a system TTS engine that any reader can use.
+- Which Grimm tales make the first set, and who reviews each retelling.
 
 See [docs/consent-script.zh-TW.md](docs/consent-script.zh-TW.md) for the draft
 consent script.
+
+## License
+
+[Apache License 2.0](LICENSE), matching sherpa-onnx and ZipVoice. This covers the
+code and the project's own Grimm retellings in `content/grimm/`. Voices and stories
+that a family adds are theirs and are not part of the repository.
