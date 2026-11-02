@@ -1,0 +1,13 @@
+# Voices and stories are user data. They never enter this repository.
+*.wav
+*.mp3
+*.m4a
+*.ogg
+*.flac
+*.onnx
+voices/
+stories/
+recordings/
+models/
+.task-ledger/
+.DS_Store

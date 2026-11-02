@@ -1,0 +1,81 @@
+# family-storyteller
+
+An open-source framework that lets a grandparent's cloned voice read stories to
+their grandchildren, running on the grandparent's own Android phone.
+
+Status: **design stage, no code yet.** Research below was gathered on 2026-11-02
+from project pages and READMEs; nothing has been installed or tested yet.
+
+## The idea
+
+1. Grandma reads a short consent script aloud into the app.
+2. That same recording is the voice sample. A zero-shot TTS model clones her voice
+   on the phone.
+3. Any story (PDF, text) can then be read aloud in her voice, without her reading it.
+
+The repository ships **code only**. Voices and stories are added afterwards by each
+family and never enter the repository.
+
+## Design principles
+
+- **Consent recording is the voice sample.** The voice can only be cloned from a
+  live microphone recording of the person reading the consent script. No audio file
+  import. This ties every cloned voice to a spoken, recorded agreement and blocks the
+  obvious misuse (cloning someone from a clip taken elsewhere).
+- **On-device only.** Voice samples and generated audio stay on the phone. No cloud
+  upload.
+- **Revocable.** The speaker can delete their voice at any time, and deletion removes
+  the sample and every derived artifact.
+- **Stories are the family's responsibility.** Any built-in sample stories must be
+  public domain or written by the project. Stories a family adds later are theirs to
+  clear.
+- A voice is personal data, not copyrighted content. The consent script says what is
+  recorded, what it is used for, where it is stored, who uses it, and that it can be
+  deleted. This is engineering design, not legal advice.
+
+## Target device
+
+Motorola moto g34 5G: Snapdragon 695, sold in **4 GB and 8 GB RAM** variants.
+Which variant Grandma has is not yet known; it decides the model size.
+
+## Candidate stack (verified 2026-11-02 via GitHub API unless noted)
+
+| Component | Project | License | Notes |
+|---|---|---|---|
+| On-device inference | [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) | Apache-2.0 | Android/JNI; active (pushed 2026-10-29) |
+| Zero-shot cloning model | [k2-fsa/ZipVoice](https://github.com/k2-fsa/ZipVoice) | Apache-2.0 | Chinese + English; pinyin via pypinyin, manual `<pinyin>` override for polyphones |
+| Reference implementation | [sipeter/CloneTTS](https://github.com/sipeter/CloneTTS) | **none (all rights reserved)** | Android system TTS engine on sherpa-onnx + ZipVoice; v0.7.1 on 2026-10-26. Proves the stack runs on Android. **Do not copy its code.** |
+| PDF reader (uses system TTS) | [foobnix/LibreraReader](https://github.com/foobnix/LibreraReader) | NOASSERTION (MuPDF is AGPL-3.0) | Reads PDF/EPUB aloud via the system voice |
+| Taiwanese Mandarin (PC only) | [MediaTek-Research/BreezyVoice](https://huggingface.co/MediaTek-Research/BreezyVoice) | Apache-2.0 | Bopomofo pronunciation control; too heavy for the phone, usable for pre-generating audio |
+
+Unverified, from a third-party wrapper's docs: full ZipVoice is about 605 MB and
+needs significant RAM; an int8 distilled variant (about 104 MB) is suggested for
+phones under 8 GB, and it needs a vocoder (e.g. vocos_24khz) to initialise.
+
+Avoid: [gedoor/legado](https://github.com/gedoor/legado). Its repository was emptied
+and replaced with a copyright-infringement notice.
+
+## Known gaps
+
+- Mainland pinyin: words read differently in Taiwan (e.g. 垃圾, 星期) will use the
+  mainland reading. The voice itself should still sound like the speaker.
+- Traditional Chinese input through pypinyin: untested.
+- Taiwanese Hokkien: not supported by this stack. Candidates exist
+  (MERaLiON-OmniVoice-Hokkien-TTS, KaedeTai/gpt-sovits-tw) but are untested.
+- Real-time speed on a Snapdragon 695: unknown.
+
+## Next step
+
+Before writing code: install CloneTTS + Librera on the target phone, clone a voice,
+and read a Chinese PDF. Record three things: does it sound like her, how many
+characters are mispronounced, and is the pause between sentences tolerable. If
+real-time is too slow, the framework pre-generates audio instead of reading live.
+
+## Open decisions (owner)
+
+- License for this repository (Apache-2.0 matches sherpa-onnx and ZipVoice).
+- Whether and when to publish to GitHub, and as public or private.
+- App shape: our own reader app, or a system TTS engine that any reader can use.
+
+See [docs/consent-script.zh-TW.md](docs/consent-script.zh-TW.md) for the draft
+consent script.
